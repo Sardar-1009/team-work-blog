@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosApi from '../api/axiosApi';
 import { UserCredentials, AuthResponse } from '../types';
-import axios from 'axios'; // Добавляем для типизации ошибки
+import axios from 'axios';
 
 const Login: React.FC = () => {
   const [credentials, setCredentials] = useState<UserCredentials>({ email: '', password: '' });
@@ -12,13 +12,17 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      console.log('Sending login request:', credentials);
       const response = await axiosApi.post<AuthResponse>('/auth/login', credentials);
+      console.log('Login response:', response.data);
       localStorage.setItem('token', response.data.token);
-      navigate('/create-post');
+      navigate('/posts');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
-        setError(`Ошибка входа: ${err.response.data.message || 'Проверьте данные.'}`);
+        console.error('Login error:', err.response.data);
+        setError(`Ошибка входа: ${err.response.data.message || 'Проверьте email и пароль.'}`);
       } else {
+        console.error('Network error:', err);
         setError('Ошибка соединения с сервером.');
       }
     }

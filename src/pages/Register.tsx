@@ -12,12 +12,16 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+      console.log('Sending register request:', credentials);
       await axiosApi.post('/auth/register', credentials);
+      console.log('Registration successful');
       navigate('/login');
     } catch (err) {
       if (axios.isAxiosError(err) && err.response) {
+        console.error('Register error:', err.response.data);
         setError(`Ошибка регистрации: ${err.response.data.message || 'Попробуйте снова.'}`);
       } else {
+        console.error('Network error:', err);
         setError('Ошибка соединения с сервером.');
       }
     }

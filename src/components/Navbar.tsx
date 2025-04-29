@@ -12,11 +12,13 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between">
-        <Link to="/" className="text-white font-bold">Blog</Link>
+        <Link to="/posts" className="text-white font-bold">Blog</Link>
         <div>
+          <Link to="/posts" className="text-white mr-4">Посты</Link>
           {isAuthenticated ? (
             <>
               <Link to="/create-post" className="text-white mr-4">Создать пост</Link>
+              <Link to="/create-category" className="text-white mr-4">Создать категорию</Link>
               <button onClick={handleLogout} className="text-white">Выйти</button>
             </>
           ) : (

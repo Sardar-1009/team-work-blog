@@ -1,10 +1,21 @@
+export interface IUser {
+  id: string | null;
+  username: string | null;
+}
+
 export interface UserCredentials {
-  email: string;
+  username: string;
   password: string;
+  password_confirm?: string; 
 }
 
 export interface AuthResponse {
-  token: string;
+  access: string;
+  refresh: string;
+  user: {
+    id: string;
+    username: string;
+  };
 }
 
 export interface Category {

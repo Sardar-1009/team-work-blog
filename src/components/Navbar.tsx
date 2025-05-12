@@ -1,11 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
-  const isAuthenticated = !!localStorage.getItem('token');
+  const { accessToken, clearTokens } = useAuthStore();
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    clearTokens();
     navigate('/login');
   };
 
@@ -15,7 +16,7 @@ const Navbar: React.FC = () => {
         <Link to="/posts" className="text-white font-bold">Blog</Link>
         <div>
           <Link to="/posts" className="text-white mr-4">Посты</Link>
-          {isAuthenticated ? (
+          {accessToken ? (
             <>
               <Link to="/create-post" className="text-white mr-4">Создать пост</Link>
               <Link to="/create-category" className="text-white mr-4">Создать категорию</Link>

@@ -39,6 +39,8 @@ const PostList: React.FC = () => {
           </div>
         ))}
       </div>
+      <div> <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>↑</button>
+      </div>
     </div>
   );
 };
